@@ -1,0 +1,197 @@
+<!doctype html>
+
+	<head>
+	    <title>
+	    	VCDM
+	    </title>
+
+		<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+	</head>
+
+	<body>
+
+		<header>
+			<section id="pageContent">
+				<div id="logo"><img src="/static/VCDM_logo.png">Variable Condition Discolouration Model</div>
+			</section>
+		</header>
+
+		<section id="pageContent">
+			<main role="main">
+
+				<block>
+
+					<table id="header_table">
+						<tbody>
+							<tr>
+								<td rowspan="2"><div id="logo_pic"><img src="/static/TUOS.png"></div> </td>
+								<td><h1>1. Input Data</h1></td>
+							</tr>
+
+							<tr>
+								<td><h4>& file upload</h4></td>
+							</tr>
+						</tbody>
+					</table>
+
+				</block>
+
+				<block>
+					<h2>Input Data Format</h2>
+					<p>The amount of wall bound discolouration material within discrete shear strength bands and output simulations described by the VCDM is defined by imposed hydraulics. A time series flow profile therefore needs to be submitted. The option to include time series turbidity data to aid calibration is also part of the input process. With this online version the following format is required; </p>
+				</block>
+				
+				<block>
+	
+					<p>
+						<ul>
+							<li>File submission must be <b>.csv</b> <i>(comma-separated values)</i> format</li>
+							<li>Input file must have the following headers and data in the <b>correct units</b> as demonstrated below;</li>
+						</ul>
+					</p>
+
+				</block>
+
+				<block>
+					<table class="tableizer-table">
+						<thead>
+							<tr class="tableizer-firstrow">
+								<th>Time (s)</th
+								><th>Flow (m3/s)</th>
+								<th>Time (s)</th
+								><th>NTU</th>
+							</tr>
+						</thead>
+						<tbody>
+							 <tr><td>0</td><td>0.1059</td><td>6000</td><td>0.15</td></tr>
+							 <tr><td>900</td><td>0.1074</td><td>6300</td><td>0.18</td></tr>
+							 <tr><td>1800</td><td>0.1088</td><td>6600</td><td>0.21</td></tr>
+
+						</tbody>
+					</table>
+
+				</block>
+
+				<block>
+					<p>
+						<ul>
+							<li>File format is critical to prevent errors;</li>
+							<ol>
+								<li>Times must be sequential with first flow value at time = 0. Time steps do not need to be equal. </li>
+								<li>Turbidity data (columns 3 & 4) may be left blank. When used, turbidity time series is independent of flow, so different time periods may be used and there is no restriction on initial time stamp/value.  </li>
+								<li>Flows values must be non-zero and positive with no gaps or non-numeric terms.</li>
+								<li>The number of turbidity data points must not exceed flow data (i.e. columns 3 & 4 must be no larger than 1 & 2). Note excessive decimal places (>6) may cause computational issues.</li>
+							</ol>
+						</ul>
+					</p>					
+				</block>
+
+				<block>	
+
+					<p>
+						<h2>Select a file to upload</h2>
+						<p>The selected file must be in <b>.csv</b> <i>(comma-separated values)</i> format. The size of the input file must be smaller than 32Mb.</p>
+
+						<form method="post" enctype=multipart/form-data><hr/>
+						    <dl><input type="file" name="file" autocomplete="off" required></dl>
+
+							<p>
+								{% with messages = get_flashed_messages() %}
+								  {% if messages %}
+									<ul>
+									{% for message in messages %}
+									  <li>{{ message }}</li>
+									{% endfor %}
+									</ul>
+								  {% endif %}
+								{% endwith %}
+							</p>
+
+						    <hr/>
+							<input class="upload" type="submit" value="Submit">
+						</form>
+					</p>
+				<block>	
+
+			</main>
+			<aside>
+
+				<div>
+					<aside_header>
+						Links:
+					</aside_header>
+
+					<aside_body>
+						<p>
+							<ul>
+								<li><a href="http://www.podds.co.uk/">PODDS</a></li>
+								<li><a href="https://www.sheffield.ac.uk/">University of Sheffield (UoS)</a></li>
+								<li><a href="https://www.sheffield.ac.uk/civil">UoS - Department of Civil and Structural Engineering</a></li>
+								<li><a href="https://www.sheffield.ac.uk/it-services/research">UoS - It Services/Research IT</a></li>
+							</ul>
+						</p>
+					</aside_body>
+				</div>
+				<hr/>
+				<div>
+
+					<aside_header>
+						References:
+					</aside_header>
+
+					<aside_body>
+						<p>
+							<ul>
+								<li><a href="https://link.springer.com/article/10.1186/s40713-019-0015-z">Furnass, W. Mounce, S. Husband, S. Collins, R. & Boxall, J (2019). doi.org/10.1186/s40713-019-0015-z</a></li>
+								<li><a href="https://www.ncbi.nlm.nih.gov/pubmed/27837730">Husband, S. & Boxall, J (2016) doi: 10.1016/j.watres.2016.10.049</a></li>
+
+							</ul>
+						</p>
+					</aside_body>
+
+				</div>
+				<hr/>
+				<div>
+					<aside_header>
+						Contact:
+					</aside_header>
+
+					<aside_body>
+						<p>
+							<ul>
+								<li>Dr Stewart Husband</li>
+								<li>Prof Joby Boxall</li>
+							</ul>
+						</p>
+					</aside_body>
+
+				</div>
+
+				<hr/>
+				<div>
+					<aside_header>
+						Acknowledgement:
+					</aside_header>
+
+					<aside_body>
+						<p>
+							<ul>
+								<li>Dr Will Furnass</li>
+								<li>Dr Norbert Gyenge</li>
+							</ul>
+						</p>
+					</aside_body>
+
+				</div>
+
+			</aside>
+
+		</section>
+
+		<footer>
+
+		</footer>
+
+	</body>
+
+</html>

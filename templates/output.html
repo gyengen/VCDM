@@ -1,0 +1,183 @@
+<!doctype html>
+
+	<head>
+	    <title>
+	    	VCDM
+	    </title>
+
+		<script src="https://cdn.bokeh.org/bokeh/release/bokeh-1.4.0.min.js"></script>
+		<script src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-1.4.0.min.js"></script>
+		<script src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-1.4.0.min.js"></script>
+		<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+		{{output_script|safe}}
+
+	</head>
+
+	<body>
+
+		<header>
+			<section id="pageContent">
+				<div id="logo"><img src="/static/VCDM_logo.png">Variable Condition Discolouration Model</div>
+			</section>
+		</header>
+
+		<section id="pageContent">
+			<main role="main">
+
+				<block>
+
+					<table id="header_table">
+						<tbody>
+							<tr>
+								<td rowspan="2"><div id="logo_pic"><img src="/static/TUOS.png"></div> </td>
+								<td><h1>3. Model Output</h1></td>
+							</tr>
+
+							<tr>
+								<td><h4>& Download</h4></td>
+							</tr>
+						</tbody>
+					</table>
+
+				</block>
+				
+				<block>
+					<h2>Output</h2>
+
+					<p>VCDM model output is shown as three sub-plots with each having the same time period x-axis (seconds). There is an option to download the results as an MS Excel file. Note that this model version assumes the initial pipe condition to have unrealistic fully developed material layers. As a result initial turbidity responses are invalid until material layers achieve equilibrium with background flows.</p>
+
+				</block>
+				
+				<block>
+
+					<ul>
+						<li>PLOT 1: The value of the input flow translated to applied shear stress in N/m2 (Pascal), </li>
+						<li>PLOT 2: Three example tracked shear strength bands (determined as 25th, 50th and 75th percentiles of the current hydraulic conditions) to represent a cross-section of the shear stress range as defined by the input flow range. The y-axis is amount of material present (layer condition) corresponding to specific shear strength band where 0 = no material and 1 = a fully developed material layer. </li>
+						<li>PLOT 3: Simulated (and if part of input file the measured) turbidity in NTU. </li>
+					</ul>
+
+				</block>	
+
+				<block>
+					<p>
+						<form method="post">
+							<input type="submit" name="download_xlsx" value="Download XLSX">
+						</form>
+					</p>
+				</block>
+
+				<block>
+					<p>
+						{{output_div|safe}}
+					</p>
+				</block>
+
+				<block>
+
+					<p>
+						{% with messages = get_flashed_messages() %}
+						  {% if messages %}
+							<ul class=flashes>
+							{% for message in messages %}
+							  <li>{{ message }}</li>
+							{% endfor %}
+							</ul>
+						  {% endif %}
+						{% endwith %}
+					</p>
+
+				</block>
+
+
+
+			</main>
+
+			<aside>
+
+				<div>
+					<aside_header>
+						Links:
+					</aside_header>
+
+					<aside_body>
+						<p>
+							<ul>
+								<li><a href="http://www.podds.co.uk/">PODDS</a></li>
+								<li><a href="https://www.sheffield.ac.uk/">University of Sheffield (UoS)</a></li>
+								<li><a href="https://www.sheffield.ac.uk/civil">UoS - Department of Civil and Structural Engineering</a></li>
+								<li><a href="https://www.sheffield.ac.uk/it-services/research">UoS - It Services/Research IT</a></li>
+							</ul>
+						</p>
+					</aside_body>
+				</div>
+				<hr/>
+				<div>
+
+					<aside_header>
+						References:
+					</aside_header>
+
+					<aside_body>
+						<p>
+							<ul>
+								<li><a href="https://link.springer.com/article/10.1186/s40713-019-0015-z">Furnass, W. Mounce, S. Husband, S. Collins, R. & Boxall, J (2019). doi.org/10.1186/s40713-019-0015-z</a></li>
+								<li><a href="https://www.ncbi.nlm.nih.gov/pubmed/27837730">Husband, S. & Boxall, J (2016) doi: 10.1016/j.watres.2016.10.049</a></li>
+
+							</ul>
+						</p>
+					</aside_body>
+
+				</div>
+				<hr/>
+				<div>
+					<aside_header>
+						Contact:
+					</aside_header>
+
+					<aside_body>
+						<p>
+							<ul>
+								<li>Dr Stewart Husband</li>
+								<li>Prof Joby Boxall</li>
+							</ul>
+						</p>
+					</aside_body>
+
+				</div>
+
+				<hr/>
+				<div>
+					<aside_header>
+						Acknowledgement:
+					</aside_header>
+
+					<aside_body>
+						<p>
+							<ul>
+								<li>Dr Will Furnass</li>
+								<li>Dr Norbert Gyenge</li>
+							</ul>
+						</p>
+					</aside_body>
+
+				</div>
+
+			</aside>
+
+		</section>
+
+		<footer>
+
+		</footer>
+
+	</body>
+
+</html>
+
+
+
+
+
+
+
+

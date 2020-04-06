@@ -1,0 +1,178 @@
+<!doctype html>
+
+	<head>
+	    <title>
+	    	VCDM
+	    </title>
+
+		<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+	</head>
+
+	<body>
+
+		<header>
+			<section id="pageContent">
+				<div id="logo"><img src="/static/VCDM_logo.png">Variable Condition Discolouration Model</div>
+			</section>
+		</header>
+
+		<section id="pageContent">
+			<main role="main">
+
+				<block>
+
+					<table id="header_table">
+						<tbody>
+							<tr>
+								<td rowspan="2"><div id="logo_pic"><img src="/static/TUOS.png"></div> </td>
+								<td><h1>VCDM</h1></td>
+							</tr>
+
+							<tr>
+								<td><h4>Online Tool to Track Discolouration in Distribution Systems</h4></td>
+							</tr>
+						</tbody>
+					</table>
+
+				</block>
+
+				<block>
+
+					<p>The Variable Condition Discolouration Model (VCDM) is a decision support tool that simulates turbidity responses by tracking the simultaneous processes of material mobilisation and accumulation that occurs on pipe walls throughout drinking water distribution systems. Detailed explanation of model formulation and example parameter derivations can be found in Furnass et al 2019 and a summary of underpinning principles and their application to trunk mains in Husband and Boxall 2016. The single pipe length version provided here requires three model parameters; a mobilisation rate, a scaling factor and an accumulation rate. Pipe characteristics are defined by length, diameter and roughness (Darcy-Weisbach).</p>
+
+				<block>		
+				</block>
+
+					<p>To use the model there are three steps; [1] a flow time series needs to be submitted with an optional time series turbidity profile to support calibration, [2] Pipe and model parameters are defined (and includes provision of information to help facilitate checking of submitted flow data), [3] Viewing of model outputs, with option to download as Excel spreadsheet. No information is stored and after finishing all information is deleted.</p>
+
+				</block>
+
+				<block>
+					<div id="index_pic"><img src="/static/flow.png"></div>
+				</block>
+
+				<block>
+
+					<p>The VCDM was developed with the support of multiple project partners and has successful demonstrated long term tracking of discolouration behaviour, helping to assess discolouration risk and inform network management. The University of Sheffield and the PODDS group assume no responsibility or liability for any errors or omissions in the content of this site and no guarantees of completeness or accuracy of outputs. The University of Sheffield and the PODDS group must be acknowledged where outputs from this tool are used.  </p>
+
+				</block>
+
+				<block>
+					<form method="post">
+						<input type="checkbox" name="check" value="agree">
+						<label for="check">I agree to these terms and wish to continue to use the VCDM.</label><br>
+						<p>
+							{% with messages = get_flashed_messages() %}
+							  {% if messages %}
+								<ul class=flashes>
+								{% for message in messages %}
+								  <li>{{ message }}</li>
+								{% endfor %}
+								</ul>
+							  {% endif %}
+							{% endwith %}
+						</p>
+						<input class="input" type="submit" value="Agree">
+					</form>
+				</block>
+
+				<block>
+					<wbr>
+				</block>
+
+				<block>
+					<wbr>
+				</block>
+
+				<block>
+					<div id="index_pic"><img src="/static/small_logs.png"></div> 
+				</block>
+
+			</main>
+
+			<aside>
+
+				<div>
+					<aside_header>
+						Links:
+					</aside_header>
+
+					<aside_body>
+						<p>
+							<ul>
+								<li><a href="http://www.podds.co.uk/">PODDS</a></li>
+								<li><a href="https://www.sheffield.ac.uk/">University of Sheffield (UoS)</a></li>
+								<li><a href="https://www.sheffield.ac.uk/civil">UoS - Department of Civil and Structural Engineering</a></li>
+								<li><a href="https://www.sheffield.ac.uk/it-services/research">UoS - It Services/Research IT</a></li>
+							</ul>
+						</p>
+					</aside_body>
+				</div>
+				<hr/>
+				<div>
+
+					<aside_header>
+						References:
+					</aside_header>
+
+					<aside_body>
+						<p>
+							<ul>
+								<li><a href="https://link.springer.com/article/10.1186/s40713-019-0015-z">Furnass, W. Mounce, S. Husband, S. Collins, R. & Boxall, J (2019). doi.org/10.1186/s40713-019-0015-z</a></li>
+								<li><a href="https://www.ncbi.nlm.nih.gov/pubmed/27837730">Husband, S. & Boxall, J (2016) doi: 10.1016/j.watres.2016.10.049</a></li>
+
+							</ul>
+						</p>
+					</aside_body>
+
+				</div>
+				<hr/>
+				<div>
+					<aside_header>
+						Contact:
+					</aside_header>
+
+					<aside_body>
+						<p>
+							<ul>
+								<li>Dr Stewart Husband</li>
+								<li>Prof Joby Boxall</li>
+							</ul>
+						</p>
+					</aside_body>
+
+				</div>
+
+				<hr/>
+				<div>
+					<aside_header>
+						Acknowledgement:
+					</aside_header>
+
+					<aside_body>
+						<p>
+							<ul>
+								<li>Dr Will Furnass</li>
+								<li>Dr Norbert Gyenge</li>
+							</ul>
+						</p>
+					</aside_body>
+
+				</div>
+
+			</aside>
+
+		</section>
+
+		<footer>
+
+		</footer>
+
+	</body>
+
+</html>
+
+
+
+
+

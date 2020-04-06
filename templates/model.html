@@ -1,0 +1,278 @@
+<!doctype html>
+
+	<head>
+	    <title>
+	    	VCDM
+	    </title>
+
+		<script src="https://cdn.bokeh.org/bokeh/release/bokeh-1.4.0.min.js"></script>
+		<script src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-1.4.0.min.js"></script>
+		<script src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-1.4.0.min.js"></script>
+		<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+		{{hist_script|safe}}
+		{{turb_script|safe}}
+
+	</head>
+
+	<body>
+
+		<header>
+			<section id="pageContent">
+				<div id="logo"><img src="/static/VCDM_logo.png">Variable Condition Discolouration Model</div>
+			</section>
+		</header>
+
+		<section id="pageContent">
+			<main role="main">
+
+				<block>
+
+					<table id="header_table">
+						<tbody>
+							<tr>
+								<td rowspan="2"><div id="logo_pic"><img src="/static/TUOS.png"></div> </td>
+								<td><h1>2. Model Parameters </h1></td>
+							</tr>
+
+							<tr>
+								<td><h4>& Flow data visualisation</h4></td>
+							</tr>
+						</tbody>
+					</table>
+
+				</block>
+
+				<block>
+					<h2>Input Flow Data</h2>
+
+					<p>A histogram showing distribution of input flow plus some descriptive statistics is provided as a visual data assurance check.</p>
+
+				</block>
+
+				<block>								
+					<p>{{hist_div|safe}}</p>
+				</block>
+
+				<block>
+					<h2>Measured Data</h2>
+				</block>
+
+				<block>			
+					<p>{{turb_div|safe}}</p>
+				</block>
+
+				<block>
+					<h2>Describing Statistics</h2>
+				</block>
+
+				<block>
+					<p>
+						<table class="tableizer-table">
+
+							<th>  </th>
+
+							{% for value in stats['header'] %}
+							
+								<th class="tableizer-firstrow"> {{ value }} </th>
+							
+							{% endfor %}
+
+							{% for key in stats %}
+							   {% if key != 'header' %}
+							
+							   <tr>
+							   		<th> {{ key }} </th>
+							
+							   		{% for value in stats[key] %}
+							
+							        	<td> {{ value }} </td>
+							
+							
+									{% endfor %}
+							
+							   </tr>
+							
+								{% endif %}
+							{% endfor %}
+
+						</table>
+					</p>
+				</block>
+
+				<block>
+
+					<h2>Pipe Properties</h2>
+
+					<p>This VCDM version simulates discolouration response solely from a single pipe section with;</p>
+
+				</block>
+
+				<form method="post" id="formID">
+
+					<block>
+					
+					    <div class='in_table'>
+							<div class=in_row>
+								<div class='in_cell_label'>Pipe length [m]:</div>
+								<div class='in_cell_input'><input name="par1" value="5400"></div>
+							</div>
+
+							<div class=in_row>
+								<div class='in_cell_label'>Pipe Diameter [m]:</div>
+								<div class='in_cell_input'><input name="par2" value="0.500"></div>
+							</div>	
+
+							<div class=in_row>
+								<div class='in_cell_label'>Pipe Roughness, k<sub>s</sub> [m]:</div>
+								<div class='in_cell_input'><input name="par3" value="0.001"></div>
+							</div>
+					    </div>
+
+					</block>
+
+					<block>
+
+						<h2>VCDM parameters</h2>
+
+					</block>
+
+					<block>
+
+					    <div class='in_table'>
+							<div class=in_row>
+								<div class='in_cell_label'>Mobilisation Rate, &beta;<sub>m</sub>:</div>
+								<div class='in_cell_input'><input name="par4" value="0.0004"></div>
+							</div>
+
+							<div class=in_row>
+								<div class='in_cell_label'>Accumulation Rate, &beta;<sub>a</sub> [month]:</div>
+								<div class='in_cell_input'><input name="par5" value="15"></div>
+							</div>
+
+							<div class=in_row>
+								<div class='in_cell_label'>Scaling factor (&alpha;):</div>
+								<div class='in_cell_input'><input name="par6" value="1"></div>
+							</div>
+					    </div>
+
+					</block>
+
+					<block>
+						<p>For calibration purposes an offset to the simulated turbidity can be added, effectively representing background water quality;</p>
+					</block>
+
+					<block>
+
+					    <div class='in_table'>	
+							<div class=in_row>
+								<div class='in_cell_label'>Background turbidity (NTU):</div>
+								<div class='in_cell_input'><input name="par7" value="0.06"></div>
+							</div>
+					    </div>
+
+						<p>
+							{% with messages = get_flashed_messages() %}
+							  {% if messages %}
+								<ul class=flashes>
+								{% for message in messages %}
+								  <li>{{ message }}</li>
+								{% endfor %}
+								</ul>
+							  {% endif %}
+							{% endwith %}
+						</p>
+
+					    <p>
+							<input class="input" type="submit" value="Start Simulation" id="formID">
+						</p>
+
+					</block>
+				</form>
+
+			</main>
+			<aside>
+
+				<div>
+					<aside_header>
+						Links:
+					</aside_header>
+
+					<aside_body>
+						<p>
+							<ul>
+								<li><a href="http://www.podds.co.uk/">PODDS</a></li>
+								<li><a href="https://www.sheffield.ac.uk/">University of Sheffield (UoS)</a></li>
+								<li><a href="https://www.sheffield.ac.uk/civil">UoS - Department of Civil and Structural Engineering</a></li>
+								<li><a href="https://www.sheffield.ac.uk/it-services/research">UoS - It Services/Research IT</a></li>
+							</ul>
+						</p>
+					</aside_body>
+				</div>
+				<hr/>
+				<div>
+
+					<aside_header>
+						References:
+					</aside_header>
+
+					<aside_body>
+						<p>
+							<ul>
+								<li><a href="https://link.springer.com/article/10.1186/s40713-019-0015-z">Furnass, W. Mounce, S. Husband, S. Collins, R. & Boxall, J (2019). doi.org/10.1186/s40713-019-0015-z</a></li>
+								<li><a href="https://www.ncbi.nlm.nih.gov/pubmed/27837730">Husband, S. & Boxall, J (2016) doi: 10.1016/j.watres.2016.10.049</a></li>
+
+							</ul>
+						</p>
+					</aside_body>
+
+				</div>
+				<hr/>
+				<div>
+					<aside_header>
+						Contact:
+					</aside_header>
+
+					<aside_body>
+						<p>
+							<ul>
+								<li>Dr Stewart Husband</li>
+								<li>Prof Joby Boxall</li>
+							</ul>
+						</p>
+					</aside_body>
+
+				</div>
+
+				<hr/>
+				<div>
+					<aside_header>
+						Acknowledgement:
+					</aside_header>
+
+					<aside_body>
+						<p>
+							<ul>
+								<li>Dr Will Furnass</li>
+								<li>Dr Norbert Gyenge</li>
+							</ul>
+						</p>
+					</aside_body>
+
+				</div>
+
+			</aside>
+
+		</section>
+
+		<footer>
+
+		</footer>
+
+	</body>
+
+</html>
+
+
+
+
+
