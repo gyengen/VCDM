@@ -69,10 +69,6 @@ def generate_results(fn, d, df):
     s2 = figure(x_range=s1.x_range)
     s3 = figure(x_range=s1.x_range)
 
-    # If the input data has 4 columns
-    if len(df.columns) == 4:
-        s4 = figure()
-
     # Create Data Source for plotting the data
     d1 = ColumnDataSource(pd.DataFrame({"x": d['time'], "y": d['shear']}))
 
@@ -103,50 +99,55 @@ def generate_results(fn, d, df):
                 line_width=2)
 
     # Create Data Source for plotting the data
-    d3 = ColumnDataSource(pd.DataFrame({"x": d['time'], "y": d['turbidity']}))
+
+    if len(df.colums) == 4:
+        d3 = ColumnDataSource(pd.DataFrame({"x": d['time'], "y": d['turbidity'], 'y2': np.array(df.iloc[:, 3])}))
+
+    else:
+        d3 = ColumnDataSource(pd.DataFrame({"x": d['time'], "y": d['turbidity']}))
 
     # Plotting the data
     s3.line(x="x",
             y="y",
             source=d3,
             color="#0066b3",
+            legend_label='Turbidity',
             line_width=2)
 
     # If the input data has 4 columns
     if len(df.columns) == 4:
 
-        # Last plot, measured data
-        d4 = ColumnDataSource(pd.DataFrame({"x": np.array(df.iloc[:, 0]),
-                                            "y1": np.array(df.iloc[:, 1]),
-                                            "y2": np.array(df.iloc[:, 3])}))
-
         # Plotting the data
-        s4.line(x="x",
+        s3.line(x="x",
                 y="y2",
-                source=d4,
+                source=d3,
+                legend_label='Measured Turbidity',
                 color="#117733",
                 line_width=2)
 
     # Generate labels for the hover tool
-    label = ['Applied Shear [Pa]', 'Phi [tau, t]', 'Turbidity [NTU]']
+    label = ['Applied Shear [Pa]', 'Phi [tau, t]', 'Turbidity [NTU]', 'Measured Turbidity']
 
     # Create custom hover and add the hover to the plot
     s1.add_tools(HoverTool(tooltips=[('Time [s]', '@x'), (label[0], '@y')]))
     s2.add_tools(HoverTool(tooltips=[('Time [s]', '@x'), (label[1], '@y')]))
-    s3.add_tools(HoverTool(tooltips=[('Time [s]', '@x'), (label[2], '@y')]))
-    s4.add_tools(HoverTool(tooltips=[('Time [s]', '@x'), (label[2], '@y2')]))
+
+    if len(df.columns) == 4:
+        s3.add_tools(HoverTool(tooltips=[('Time [s]', '@x'), (label[2], '@y'), (label[3], '@y2')]))
+
+    else:
+        s3.add_tools(HoverTool(tooltips=[('Time [s]', '@x'), (label[2], '@y')]))
 
     # Setup the y labels
     s1.yaxis.axis_label = 'Applied Shear [Pa]'
     s2.yaxis.axis_label = 'phi [tau, t]'
     s3.yaxis.axis_label = 'Turbidity [NTU]'
-    s4.yaxis.axis_label = 'Measured Turbidity [NTU]'
+    #s4.yaxis.axis_label = 'Measured Turbidity [NTU]'
 
     # Setup the x labels
     s1.xaxis.axis_label = 'Time [s]'
     s2.xaxis.axis_label = 'Time [s]'
     s3.xaxis.axis_label = 'Time [s]'
-    s4.xaxis.axis_label = 'Time [s]'
 
     # Transparent background
     s1.border_fill_color = None
@@ -173,14 +174,8 @@ def generate_results(fn, d, df):
     # If the input data has 4 columns
     if len(df.columns) == 4:
 
-        s4.xgrid.grid_line_color = None
-        s4.ygrid.grid_line_color = None
-        s4.border_fill_color = None
-        s4.background_fill_color = None
-        s4.xaxis.axis_label = 'Time [s]'
-
         # make a grid
-        grid = gridplot([s1, s2, s3, s4],
+        grid = gridplot([s1, s2, s3],
                         ncols=1,
                         plot_width=plot_width,
                         plot_height=plot_height)
