@@ -1,9 +1,9 @@
 html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address,cite,code,del,dfn,em,img,ins,kbd,q,samp,small,strong,sub,sup,var,b,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,block,aside,canvas,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary,time,mark,audio,video{margin:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}
 body{line-height:1; font-family: blake;}
-h1{font-size: 30px;font-family: steph;}
-h2{font-size: 21px;font-family: steph; color: #0066b3;}
-h3{font-size: 17px;font-family: steph;}
-h4{font-size: 15px;font-family: steph; color: #0066b3;}
+h1{font-size: 30px;font-family: steph; base; font-weight: 400;}
+h2{font-size: 21px;font-family: steph; color: #0066b3; font-weight: 400;}
+h3{font-size: 17px;font-family: steph; font-weight: 400;}
+h4{font-size: 15px;font-family: steph; color: #0066b3; font-weight: 400;}
 block,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}
 nav ul{list-style:none}
 blockquote,q{quotes:none}
@@ -132,7 +132,6 @@ aside > div {
 
 aside_header {
     font-family: steph;
-    font-weight: bold;
     margin-left: 15px;
     margin-bottom: 20px;
     color: #0066b3;
@@ -277,6 +276,9 @@ sub {
     vertical-align: baseline;
 }
 
+b{
+    font-weight: 400;
+}
 }
 
 .in_table{

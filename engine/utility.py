@@ -99,12 +99,14 @@ def generate_results(fn, d, df):
                 line_width=2)
 
     # Create Data Source for plotting the data
-
-    if len(df.colums) == 4:
-        d3 = ColumnDataSource(pd.DataFrame({"x": d['time'], "y": d['turbidity'], 'y2': np.array(df.iloc[:, 3])}))
+    if len(df.columns) == 4:
+        d3 = ColumnDataSource(pd.DataFrame({"x": d['time'],
+                                            "y": d['turbidity'],
+                                            'y2': np.array(df.iloc[:, 3])}))
 
     else:
-        d3 = ColumnDataSource(pd.DataFrame({"x": d['time'], "y": d['turbidity']}))
+        d3 = ColumnDataSource(pd.DataFrame({"x": d['time'],
+                                            "y": d['turbidity']}))
 
     # Plotting the data
     s3.line(x="x",
@@ -126,23 +128,27 @@ def generate_results(fn, d, df):
                 line_width=2)
 
     # Generate labels for the hover tool
-    label = ['Applied Shear [Pa]', 'Phi [tau, t]', 'Turbidity [NTU]', 'Measured Turbidity']
+    label = ['Applied Shear [Pa]',
+             'Phi [tau, t]',
+             'Turbidity [NTU]',
+             'Measured Turbidity']
 
     # Create custom hover and add the hover to the plot
     s1.add_tools(HoverTool(tooltips=[('Time [s]', '@x'), (label[0], '@y')]))
     s2.add_tools(HoverTool(tooltips=[('Time [s]', '@x'), (label[1], '@y')]))
 
     if len(df.columns) == 4:
-        s3.add_tools(HoverTool(tooltips=[('Time [s]', '@x'), (label[2], '@y'), (label[3], '@y2')]))
+        s3.add_tools(HoverTool(tooltips=[('Time [s]', '@x'), (label[2], '@y'),
+                                         (label[3], '@y2')]))
 
     else:
-        s3.add_tools(HoverTool(tooltips=[('Time [s]', '@x'), (label[2], '@y')]))
+        s3.add_tools(HoverTool(tooltips=[('Time [s]', '@x'),
+                                         (label[2], '@y')]))
 
     # Setup the y labels
     s1.yaxis.axis_label = 'Applied Shear [Pa]'
     s2.yaxis.axis_label = 'phi [tau, t]'
     s3.yaxis.axis_label = 'Turbidity [NTU]'
-    #s4.yaxis.axis_label = 'Measured Turbidity [NTU]'
 
     # Setup the x labels
     s1.xaxis.axis_label = 'Time [s]'
@@ -169,7 +175,8 @@ def generate_results(fn, d, df):
     s3.xgrid.grid_line_color = None
     s3.ygrid.grid_line_color = None
 
-    s2.legend.background_fill_color = '#eff2f0'
+    s2.legend.background_fill_alpha = 0.0
+    s3.legend.background_fill_alpha = 0.0
 
     # If the input data has 4 columns
     if len(df.columns) == 4:
@@ -234,7 +241,7 @@ def generate_turbidity_and_flow(df):
             source=d1,
             color="#0066b3",
             legend_label='Flow',
-            line_width=0.5)
+            line_width=1)
 
     # Range for the first dataset
     s1.y_range = Range1d(t_and_f['flow'].min(), t_and_f['flow'].max())
@@ -260,7 +267,7 @@ def generate_turbidity_and_flow(df):
                 color="#117733",
                 y_range_name='y2',
                 legend_label='Turbidity [NTU]',
-                line_width=0.5)
+                line_width=1)
 
         # Create custom hover and add the hover to the plot
         s1.add_tools(HoverTool(tooltips=[('Time [s]', '@time'),
