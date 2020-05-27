@@ -102,6 +102,7 @@ def generate_results(fn, d, df):
     if len(df.columns) == 4:
         d3 = ColumnDataSource(pd.DataFrame({"x": d['time'],
                                             "y": d['turbidity'],
+                                            "x2": np.array(df.iloc[:, 2]),
                                             'y2': np.array(df.iloc[:, 3])}))
 
     else:
@@ -120,7 +121,7 @@ def generate_results(fn, d, df):
     if len(df.columns) == 4:
 
         # Plotting the data
-        s3.line(x="x",
+        s3.line(x="x2",
                 y="y2",
                 source=d3,
                 legend_label='Measured Turbidity',
@@ -139,6 +140,7 @@ def generate_results(fn, d, df):
 
     if len(df.columns) == 4:
         s3.add_tools(HoverTool(tooltips=[('Time [s]', '@x'), (label[2], '@y'),
+                                         ('Time [s]', '@x2'), 
                                          (label[3], '@y2')]))
 
     else:
@@ -216,6 +218,7 @@ def generate_turbidity_and_flow(df):
         # Custom hover poperties
         t_and_f = pd.DataFrame({"time": np.array(df.iloc[:, 0]),
                                 "flow": np.array(df.iloc[:, 1]),
+                                "time_turb": np.array(df.iloc[:, 2]),
                                 "turb": np.array(df.iloc[:, 3])})
 
     else:
@@ -261,7 +264,7 @@ def generate_turbidity_and_flow(df):
                                  axis_label=str(df.keys()[3])), "right")
 
         # Create lineplot #1
-        s1.line(x="time",
+        s1.line(x="time_turb",
                 y="turb",
                 source=d1,
                 color="#117733",
@@ -272,6 +275,7 @@ def generate_turbidity_and_flow(df):
         # Create custom hover and add the hover to the plot
         s1.add_tools(HoverTool(tooltips=[('Time [s]', '@time'),
                                          (str(df.keys()[1]), '@flow'),
+                                         ('Time [s]', '@time_turb'),
                                          (str(df.keys()[3]), '@turb')]))
 
     else:
